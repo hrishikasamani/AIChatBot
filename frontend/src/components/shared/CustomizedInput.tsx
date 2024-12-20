@@ -10,15 +10,18 @@ type Props = {
 const CustomizedInput = (props: Props) => {
     return (
         <TextField
-            //InputLabelProps={{style: {color: "white"}}} 
+        margin="normal"
+        slotProps={{
+            inputLabel: {
+                style: { color: "white", fontSize: 20},
+            },
+            input: {
+                style: { color: "white" }, // Makes the input text white
+            },
+        }}
             name = {props.name}
             label = {props.label}
             type = {props.type}
-            sx={{
-                "& .MuiInputLabel-root": {
-                  color: "white",
-                },
-              }}
         />
     );
 };

@@ -1,15 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createRoot } from "react-dom/client";
 import './index.css';
 import App from './App.tsx';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.tsx';
+import axios from 'axios';
+import { Toaster } from "react-hot-toast";
 
-const theme = createTheme({typography:{
+axios.defaults.baseURL = "http://localhost:5000/api/v1";
+axios.defaults.withCredentials = true;
+
+const theme = createTheme({
+  typography: {
   fontFamily: "Roboto Serif, serif", 
   allVariants:{color: "white"},
-},
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -17,6 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
    <AuthProvider>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
+        <Toaster position="top-right"/>
         <App />
       </ThemeProvider>
     </BrowserRouter>

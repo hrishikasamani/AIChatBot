@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { Routes } from "react-router-dom";
 import { getAllUsers, userLogin, userSignup } from "../controllers/user-controllers.js";
 import { loginValidator, signupValidator, validate } from "../utils/validators.js";
 

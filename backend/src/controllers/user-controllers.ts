@@ -14,7 +14,7 @@ export const getAllUsers = async (
         return res.status(200).json({message:"OK", users});
     } catch (error) {
         console.log(error);
-        return res.status(200).json({message:"ERROR", cause: error.message})
+        return res.status(500).json({message:"ERROR", cause: error.message})
     }
 };
 
@@ -27,10 +27,10 @@ export const userSignup = async (
         //user signup
         const {name, email, password} = req.body;
         const existingUser = await User.findOne({ email });
-        if(existingUser) return res.status(401).send("User already registered");
+        if(existingUser) return res.status(409).send("User already registered");
 
         //generates a hashed password with 10 rounds so its more encrypted
-        const hashedPassword = hash(password, 10);
+        const hashedPassword = await hash(password, 10);
         const user = new User({name, email, password: hashedPassword});
         await user.save();
 
@@ -53,15 +53,15 @@ export const userSignup = async (
             signed: true,
         });
 
-        return res.status(201).json({ message:"OK", id: user._id.toString() });
+        return res.status(201).json({ message:"OK", name: user.name, email: user.email });
     } catch (error) {
         console.log(error);
-        return res.status(200).json({message:"ERROR", cause: error.message})
+        return res.status(500).json({message:"ERROR", cause: error.message})
     }
 };
 
 export const userLogin = async (
-    req:Request,
+    req: Request,
     res: Response,
     next: NextFunction
     ) => {
@@ -70,11 +70,11 @@ export const userLogin = async (
         const {email, password} = req.body;
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(401).send("User not registered");
+            return res.status(404).send("User not registered");
         }
         const isPasswordCorrect = await compare(password, user.password);
         if(isPasswordCorrect) {
-            return res.status(403).send("Incorrect Password");
+            return res.status(401).send("Incorrect Password");
         }
 
         res.clearCookie(COOKIE_NAME, {
@@ -95,10 +95,10 @@ export const userLogin = async (
             signed: true,
         });
 
-        return res.status(200).json({ message: "OK", id: user._id.toString() });
+        return res.status(200).json({ message: "OK", name: user.name, email: user.email });
 
     } catch (error) {
         console.log(error);
-        return res.status(200).json({message:"ERROR", cause: error.message})
+        return res.status(500).json({message:"ERROR", cause: error.message})
     }
 }  

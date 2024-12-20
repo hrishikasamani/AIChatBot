@@ -1,4 +1,4 @@
-import { NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import { body, ValidationChain, validationResult } from "express-validator";
 
 export const validate = (validations: ValidationChain[]) => {
@@ -13,7 +13,7 @@ export const validate = (validations: ValidationChain[]) => {
         if(errors.isEmpty()) {
             return next();
         }
-        return res.status(422).jsom({ errors: errors.array() });
+        return res.status(422).json({ errors: errors.array() });
     };
 };
 
@@ -23,6 +23,6 @@ export const loginValidator = [
 ];
 
 export const signupValidator = [
-    body("name").notEmpty().withMessage("Name is required"),
+    body("name").trim().notEmpty().withMessage("Name is required"),
     ...loginValidator,
 ];
