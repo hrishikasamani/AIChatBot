@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { createRoot } from "react-dom/client";
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
 import { ThemeProvider, createTheme } from '@mui/material';
@@ -19,7 +18,12 @@ const theme = createTheme({
   },
 });
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  throw new Error("Root element not found");
+}
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
    <AuthProvider>
     <BrowserRouter>
