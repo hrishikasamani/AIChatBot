@@ -1,42 +1,59 @@
-import { Avatar, Box, Button, Typography } from "@mui/material";
-import React from "react";
+import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
+import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { red } from "@mui/material/colors";
 import ChatItem from "../components/chat/ChatItem";
+import { IoMdSend } from "react-icons/io";
+type Message = {
+    role: "user" | "assistant";
+    content: string;
+}
 
-const chatMessages = [
-    {
-        role: "user",
-        content: "Hello, can you tell me the weather forecast for tomorrow",
-    },
-    {
-        role: "assistant",
-        content: "Sure! I can help with that. Please provide me with your current location.",
-    },
-    {
-        role: "user",
-        content: "I am in New York City",
-    },
-    {
-        role: "assistant",
-        content: "Great! Give me a minute to fetch the weather information for New York City.",
-    },
-    {
-        role: "assistant",
-        content: "The weather forecast for New York City tomorrow is: Sunny with a high of 70F and a low od 30F.",
-    },
-    {
-        role: "user",
-        content: "That sounds perfect! Thank you for that information",
-    },
-    {
-        role: "assistant",
-        content: "You're welcome! Let me know if you have any more questions.",
-    },
-]
+// const chatMessages = [
+//     {
+//         role: "user",
+//         content: "Hello, can you tell me the weather forecast for tomorrow",
+//     },
+//     {
+//         role: "assistant",
+//         content: "Sure! I can help with that. Please provide me with your current location.",
+//     },
+//     {
+//         role: "user",
+//         content: "I am in New York City",
+//     },
+//     {
+//         role: "assistant",
+//         content: "Great! Give me a minute to fetch the weather information for New York City.",
+//     },
+//     {
+//         role: "assistant",
+//         content: "The weather forecast for New York City tomorrow is: Sunny with a high of 70F and a low od 30F.",
+//     },
+//     {
+//         role: "user",
+//         content: "That sounds perfect! Thank you for that information",
+//     },
+//     {
+//         role: "assistant",
+//         content: "You're welcome! Let me know if you have any more questions.",
+//     },
+// ]
 
 const Chat = () => {
+    const inputRef = useRef<HTMLInputElement | null>(null)
     const auth = useAuth();
+    const [chatMessages, setChatMessages] = useState<Message[]>([]);
+    const handleSubmit = async () => {
+        const content = inputRef.current?.value as string;
+        if(inputRef && inputRef.current) {
+            inputRef.current.value = "";
+        }
+        const newMessage: Message = {role: "user", content};
+        setChatMessages((prev) => [...prev, newMessage]);
+
+        //
+    };
     return (
         <Box
             sx={{
@@ -117,12 +134,36 @@ const Chat = () => {
                         overflowY: "auto",
                         scrollBehavior: "smooth"}}>
                     {chatMessages.map((chat, index) =>
+                    //@ts-ignore
                     <ChatItem content={chat.content} role={chat.role} key={index}/>
-                        // <div>
-                        //     {chat.content}
-                        // </div>
                     )}
                 </Box>
+                <div 
+                    style={{
+                        width: "100%", 
+                        padding: "20px", 
+                        borderRadius: 8, 
+                        backgroundColor: "rgb(17,27,39)",
+                        display: "flex",
+                        margin: "auto",
+                    }}
+                >
+                    {" "}
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        style={{
+                            width: "100%", 
+                            backgroundColor: "transparent", 
+                            padding: "10px", 
+                            border: "none",
+                            outline: "none",
+                            color: "white",
+                            fontSize: "20px",
+                        }}
+                    />
+                    <IconButton onClick={handleSubmit} sx={{ ml: "auto", color: "white "}}><IoMdSend /></IconButton>
+                </div>
             </Box>
         </Box>
     );
