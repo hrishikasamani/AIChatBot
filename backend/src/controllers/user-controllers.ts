@@ -69,6 +69,7 @@ export const userLogin = async (
         //user login
         const {email, password} = req.body;
         const user = await User.findOne({ email });
+        console.log(user)
         if (!user) {
             return res.status(401).send("User not registered");
         }
