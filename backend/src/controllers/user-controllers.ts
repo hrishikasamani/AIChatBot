@@ -5,7 +5,7 @@ import { createToken } from "../utils/token-manager.js";
 import { COOKIE_NAME } from "../utils/constants.js";
 
 export const getAllUsers = async (
-    req:Request,
+    req: Request,
     res: Response,
     next: NextFunction
     ) => {
@@ -45,6 +45,7 @@ export const userSignup = async (
         const token = createToken(user._id.toString(), user.email, "7d");
         const expires = new Date();
         expires.setDate(expires.getDate() + 7);
+
         res.cookie(COOKIE_NAME, token, {
             path: "/",
             domain: "localhost",
@@ -56,12 +57,12 @@ export const userSignup = async (
         return res.status(201).json({ message:"OK",  name: user.name, email: user.email });
     } catch (error) {
         console.log(error);
-        return res.status(200).json({message:"ERROR", cause: error.message})
+        return res.status(500).json({message:"ERROR", cause: error.message})
     }
 };
 
 export const userLogin = async (
-    req:Request,
+    req: Request,
     res: Response,
     next: NextFunction
     ) => {
@@ -74,7 +75,7 @@ export const userLogin = async (
             return res.status(401).send("User not registered");
         }
         const isPasswordCorrect = await compare(password, user.password);
-        if(isPasswordCorrect) {
+        if(!isPasswordCorrect) {
             return res.status(403).send("Incorrect Password");
         }
 
@@ -100,7 +101,7 @@ export const userLogin = async (
         return res.status(200).json({ message: "OK", name: user.name, email: user.email });
 
     } catch (error) {
-        console.log(error);
-        return res.status(200).json({message:"ERROR", cause: error.message})
+        console.log(error)
+        return res.status(500).json({message:"ERROR", cause: error.message})
     }
 }  
