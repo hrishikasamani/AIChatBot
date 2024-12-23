@@ -87,6 +87,7 @@ export const userLogin = async (
         const token = createToken(user._id.toString(), user.email, "7d");
         const expires = new Date();
         expires.setDate(expires.getDate() + 7);
+
         res.cookie(COOKIE_NAME, token, {
             path: "/",
             domain: "localhost",

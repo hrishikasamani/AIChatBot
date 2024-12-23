@@ -21,12 +21,24 @@ export const AuthProvider = ({children} : {children: ReactNode}) => {
         //fetch if the user's cookies are valid then skip login
     }, []);
     const login = async (email: string, password: string) => {
-        const data = await loginUser(email, password);
-        if(data) {
-            setUser({email: data.email, name: data.name});
-            setIsLoggedIn(true);
+        try {
+            const data = await loginUser(email, password);
+            if (data) {
+                setUser({ email: data.email, name: data.name });
+                setIsLoggedIn(true);
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            throw new Error("Login failed, please check your credentials.");
         }
     };
+    // const login = async (email: string, password: string) => {
+    //     const data = await loginUser(email, password);
+    //     if(data) {
+    //         setUser({email: data.email, name: data.name});
+    //         setIsLoggedIn(true);
+    //     }
+    // };
     const signup = async (name: string, email: string, password: string) => { };
     const logout = async () => { };
 

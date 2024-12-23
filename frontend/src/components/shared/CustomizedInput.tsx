@@ -12,10 +12,10 @@ const CustomizedInput = (props: Props) => {
         <TextField
             margin="normal"
             InputLabelProps={{
-                style: { color: "white", fontSize: 20 }, // Customizes the label style
+                style: { color: "white", fontSize: 20 },
             }}
             InputProps={{
-                style: { color: "white" }, // Customizes the input text style
+                style: { color: "white" },
             }}
             name={props.name}
             label={props.label}
