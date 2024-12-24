@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 import TypingAnimation from "../components/typer/TypingAnimation";
+import Footer from "../components/footer/Footer";
 
 const Home = () => {
     return(
@@ -40,6 +41,7 @@ const Home = () => {
                     <img src="chatbot.png" alt="chatbot" style={{display: "flex", width:"60%", margin:"auto", borderRadius: 20, boxShadow: "-5px -5px 105px #64f3d5", marginTop: 20, marginBottom: 60}}/>
                 </Box>
             </Box>
+            <Footer />
         </Box>
     )
 };

@@ -7,6 +7,7 @@ import { IoMdSend } from "react-icons/io";
 import { deleteUserChats, getUserChats, sendChatRequest } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer/Footer";
 
 type Message = {
     role: "user" | "assistant";
@@ -183,8 +184,8 @@ const Chat = () => {
                 </Box>
                 <div 
                     style={{
-                        width: "100%", 
-                        padding: "20px", 
+                        width: "90%", 
+                        padding: "10px", 
                         borderRadius: 8, 
                         backgroundColor: "rgb(17,27,39)",
                         display: "flex",
@@ -197,8 +198,7 @@ const Chat = () => {
                         type="text"
                         style={{
                             width: "100%", 
-                            backgroundColor: "transparent", 
-                            padding: "10px", 
+                            backgroundColor: "transparent",
                             border: "none",
                             outline: "none",
                             color: "white",
@@ -207,6 +207,7 @@ const Chat = () => {
                     />
                     <IconButton onClick={handleSubmit} sx={{ ml: "auto", color: "white "}}><IoMdSend /></IconButton>
                 </div>
+                <Footer/>
             </Box>
         </Box>
     );
