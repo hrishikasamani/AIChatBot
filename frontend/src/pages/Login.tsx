@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const auth = useAuth();
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,11 +24,13 @@ const Login = () => {
         }
         console.log(email, password);
     };
-    // useEffect(() => {
-    //     if (auth?.user) {
-    //       return navigate("/chat");
-    //     }
-    // }, [auth]);
+
+    //@ts-ignore
+    useEffect(() => {
+        if (auth?.user) {
+          return navigate("/chat");
+        }
+    }, [auth]);
 
     return (
         <Box width={"100%"} height={"100%"} display="flex" flex={1}>

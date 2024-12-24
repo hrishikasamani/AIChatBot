@@ -88,6 +88,7 @@ const Chat = () => {
         }
     }, [auth]);
 
+    //@ts-ignore
     useEffect(() => {
         if(!auth?.user) {
             return navigate("/login");

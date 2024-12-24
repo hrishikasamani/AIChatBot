@@ -19,7 +19,7 @@ export const getAllUsers = async (
 };
 
 export const userSignup = async (
-    req:Request,
+    req: Request,
     res: Response,
     next: NextFunction
     ) => {
@@ -30,7 +30,7 @@ export const userSignup = async (
         if(existingUser) return res.status(401).send("User already registered");
 
         //generates a hashed password with 10 rounds so its more encrypted
-        const hashedPassword = hash(password, 10);
+        const hashedPassword = await hash(password, 10);
         const user = new User({name, email, password: hashedPassword});
         await user.save();
 
