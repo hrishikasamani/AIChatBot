@@ -1,11 +1,13 @@
 import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { red } from "@mui/material/colors";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
 import { deleteUserChats, getUserChats, sendChatRequest } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 type Message = {
     role: "user" | "assistant";
     content: string;
@@ -43,6 +45,7 @@ type Message = {
 // ]
 
 const Chat = () => {
+    const navigate = useNavigate();
     const inputRef = useRef<HTMLInputElement | null>(null)
     const auth = useAuth();
     const [chatMessages, setChatMessages] = useState<Message[]>([]);
@@ -82,6 +85,12 @@ const Chat = () => {
                     console.log(err);
                     toast.error("Loading Failed", {id: "loadchats"});
                 });
+        }
+    }, [auth]);
+
+    useEffect(() => {
+        if(!auth?.user) {
+            return navigate("/login");
         }
     }, [auth]);
 
