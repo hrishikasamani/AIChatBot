@@ -2,7 +2,6 @@
 
 This is a ChatGPT clone built using the MERN stack (MongoDB, Express, React, Node.js). The application allows users to interact with a chatbot powered by GPT-like models, integrated with OpenAI for real-time question answering. It uses MongoDB for data storage, Express and Node.js for the backend API, and React for the frontend.
 
----
 
 ## Features
 
@@ -13,7 +12,6 @@ This is a ChatGPT clone built using the MERN stack (MongoDB, Express, React, Nod
 - **Real-time Responses**: Integrated with OpenAI API for generating responses to user queries.
 - **Responsive UI**: Built with React for a smooth user experience.
 
----
 
 ## Technologies Used
 
@@ -25,7 +23,6 @@ This is a ChatGPT clone built using the MERN stack (MongoDB, Express, React, Nod
 - **Environment Variables**: `.env` for managing sensitive information
 - **OpenAI API**: For integrating the GPT-like model for real-time question answering
 
----
 
 ## Prerequisites
 
@@ -36,7 +33,6 @@ Before you begin, ensure you have the following installed:
 - **npm**: Node Package Manager (comes with Node.js)
 - **OpenAI API Key**: [Get your OpenAI API Key](https://beta.openai.com/signup/)
 
----
 
 ## Installation
 
